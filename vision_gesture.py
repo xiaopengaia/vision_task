@@ -1,43 +1,19 @@
-import torch
-import os
-import cv2
-import numpy as np
-import os
-from PIL import Image
-import cv2
-from torch.utils.data import Dataset, DataLoader
-from torchvision import transforms
 
-import numpy as np
+import os
 import cv2
-import warnings
-warnings.filterwarnings('ignore')
+import random
 import torch
 import torch.nn as nn
-from dataset import * 
-from torchvision.models.resnet import resnet18
+import numpy as np
 import torch.optim.lr_scheduler as lr_scheduler
 import torch.optim as optim
-from torch.autograd import Variable
 
-import warnings
-warnings.filterwarnings('ignore')
-import torch
 from PIL import Image
-from dataset import *
+from torch.utils.data import Dataset, DataLoader
+from torchvision import transforms
 from torchvision.models.resnet import resnet18
-
-import torch
-from dataset import *
+from torch.autograd import Variable
 from tqdm import tqdm
-from torchvision.models.resnet import resnet18
-import random
-import cv2
-import numpy as np
-from test import *
-from torchvision.models.resnet import resnet18
-
-
 
 """
 deal datasets
@@ -53,7 +29,7 @@ with open(labels, "w") as f:
             f.write(f"{image_path} {i}\n")
 
 """
-get mean and std value
+calc mean and std value
 """
 def get_mean_std(root):
     image_path, label_path = [], []
@@ -141,7 +117,6 @@ torch.save(net, "net18_2.pt")
 """
 test
 """
-
 for image in datasets:
     output = net(image.cuda())
     result = torch.argmax(output, axis=1)
@@ -149,7 +124,6 @@ for image in datasets:
         return 10
     else:
         return int(result[0])
-
 
 """
 acc
@@ -179,7 +153,6 @@ with torch.no_grad():
 """
 app
 """
-
 def get_func():
     while True:
         num = random.randint(2, 10)
@@ -208,7 +181,6 @@ def draw_func(image):
     font = cv2.FONT_HERSHEY_SIMPLEX
     image = cv2.putText(image, text, (90, 350), font, 3, (255, 255, 255), 3)
     return image, result
-
 
 net = torch.load("./net18.pt").cuda()
 net.eval()
