@@ -1,2 +1,1 @@
-# DialScaleDetection
-Scale detection of turbine pressure gauge
+使用传统算法进行涡轮水表的检测
